@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Toggle-Checkbox</title>
+    <style>
+        .toggle-checkbox {
+            position: relative;
+            display: inline-block;
+            width: 4em;
+            height: 2em;
+
+            label {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                box-sizing: border-box;
+                border: 1px solid rgba(0, 0, 0, 0.3);
+                background-color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                user-select: none;
+
+                /* By default, hide all choices from view and clicks */
+                opacity: 0;
+                z-index: 1;
+                pointer-events: none;
+            }
+
+            /**
+            * * next is hovered,
+            * * this is hovered,
+            * * loopback: if the first is hovered, select the last
+            */
+            label:has(+ label:hover), 
+            label:hover ,
+            &:has(label:first-child:hover) label:last-child {
+                background-color: aqua;
+            }
+
+            input[type="radio"] {
+                appearance: none;
+                margin: 0;
+                position: absolute;
+            }
+
+            /* RULE 1: Find the checked label. Show it on top so the user can read it. */
+            label:has(input[type="radio"]:checked) {
+                opacity: 1;
+                z-index: 3;
+                pointer-events: none;
+            }
+
+            /* RULE 2: Find the label directly AFTER the checked one.  Place it right underneath, but make it clickable. */
+            label:has(input[type="radio"]:checked)+label {
+                opacity: 0;
+                z-index: 2;
+                pointer-events: auto;
+            }
+
+            /* Loop protection. If the VERY LAST item is checked, make the VERY FIRST label in the group clickable underneath. */
+            &:has(label:last-child input:checked) label:first-child {
+                opacity: 0;
+                z-index: 2;
+                pointer-events: auto;
+            }
+
+            /* Targets the first label only when the last one is active */
+            label:has(input[type="radio"]:checked):last-child~label:first-child {
+                opacity: 0;
+                z-index: 2;
+                pointer-events: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <form onsubmit="
+        event.preventDefault();
+        const fd = new FormData(event.target);
+        console.log(Object.fromEntries(fd.entries()));
+        ">
+        <fieldset name="asd2">
+            <div class="toggle-checkbox" id="toggle-group">
+                <label> <input value="A" name="toggle" type="radio" checked />A </label>
+                <label> <input value="B" name="toggle" type="radio" />B </label>
+            </div>
+        </fieldset>
+        <fieldset name="asd3">
+            <div class="toggle-checkbox" id="toggle-group">
+                <label> <input value="A" name="toggle2" type="radio" checked />A </label>
+                <label> <input value="B" name="toggle2" type="radio" />B </label>
+                <label> <input value="C" name="toggle2" type="radio" />C </label>
+                <label> <input value="D" name="toggle2" type="radio" />D </label>
+            </div>
+        </fieldset>
+        <button type="submit">OK</button>
+    </form>
+</body>
+
+</html>
