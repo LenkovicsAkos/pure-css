@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<!--
+    This file contains two tree views
+
+    The first is a non-exclusive tree view. Every tree item can be expanded individually
+    This uses nested details
+
+    The second is an exclusive tree view. Only one item can be expanded at once
+    This uses radio buttons and custom hiding logic
+
+
+    TODO: the toggle-radio can be used to achive togglable tree items
+    This implementation does not include that, so open tree items
+    are not closable at will, only by selecting another radio button
+
+-->
+
+<head>
+    <style>
+        .tree-nav {
+            summary {
+                list-style-type: none;
+            }
+
+            summary:hover {
+                background-color: aqua;
+            }
+
+            details>details {
+                padding-left: 0.6em;
+            }
+        }
+
+        .exclusive-tree-nav {
+            input[type="radio"] {
+                appearance: none;
+            }
+
+            label:has(input[type="radio"]:checked) {
+                color: rebeccapurple;
+            }
+
+            .tree-node {
+                display: none;
+            }
+
+            label {
+                display: block;
+                width: 100%;
+            }
+
+            .tree-host>label:hover,
+            .tree-node>label:hover {
+                background-color: aqua;
+            }
+
+
+            .tree-host:has(input[type="radio"]:checked)>div {
+                display: block;
+            }
+
+            .tree-node:has(input[type="radio"]:checked)>div {
+                display: block;
+            }
+
+            .tree-host>.tree-node,
+            .tree-node>.tree-node {
+                padding-left: 0.6em;
+                border-left: 1px solid rgba(0, 0, 0, 0.6);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="tree-nav">
+        <details>
+            <summary>A </summary>
+            <details>
+                <summary>B </summary>
+                <details>
+                    <summary>C </summary>
+                    D
+                </details>
+            </details>
+            <details>
+                <summary>E </summary>
+                <details>
+                    <summary>F </summary>
+                    <details>
+                        <summary>G </summary>
+                        <details>
+                            <summary>H </summary>
+                            I
+                        </details>
+                    </details>
+                </details>
+            </details>
+            <details>
+                <summary>J </summary>
+                K
+            </details>
+        </details>
+    </nav>
+    <div style="margin:1em;">
+        SEP
+    </div>
+    <nav class="exclusive-tree-nav">
+        <div class="tree-host"> <label><input type="radio" name="etn" value="A" />A</label>
+            <div class="tree-node"> <label><input type="radio" name="etn" value="B" />B</label>
+                <div class="tree-node"> <label><input type="radio" name="etn" value="C" />C</label>
+                    <div class="tree-node"> <label><input type="radio" name="etn" value="D" />D</label> </div>
+                </div>
+                <div class="tree-node"> <label><input type="radio" name="etn" value="E" />E</label> </div>
+            </div>
+            <div class="tree-node"> <label><input type="radio" name="etn" value="F" />F</label>
+                <div class="tree-node"> <label><input type="radio" name="etn" value="B" />B</label>
+                    <div class="tree-node"> <label><input type="radio" name="etn" value="C" />C</label>
+                        <div class="tree-node"> <label><input type="radio" name="etn" value="D" />D</label> </div>
+                    </div>
+                    <div class="tree-node"> <label><input type="radio" name="etn" value="E" />E</label>
+                        <div class="tree-node"> <label><input type="radio" name="etn" value="B" />B</label>
+                            <div class="tree-node"> <label><input type="radio" name="etn" value="C" />C</label>
+                                <div class="tree-node"> <label><input type="radio" name="etn" value="D" />D</label>
+                                </div>
+                            </div>
+                            <div class="tree-node"> <label><input type="radio" name="etn" value="E" />E</label> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tree-node"> <label><input type="radio" name="etn" value="G" />G</label> </div>
+            <div class="tree-node"> <label><input type="radio" name="etn" value="H" />H</label> </div>
+
+        </div>
+    </nav>
+</body>
+
+</html>
