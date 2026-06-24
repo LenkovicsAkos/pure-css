@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html>
+<!-- 
 
+Single file implementation of a "togglable button"
+marking a div with class="toggle-checkbox" makes it hide it's subsequent
+radio buttons, and only the "active" radio button is shown.
+
+Works through pure html and css, without javascript.
+Supports multiple states, as shown in the second example
+
+-->
 <head>
     <title>Toggle-Checkbox</title>
     <style>
@@ -85,13 +94,22 @@
         const fd = new FormData(event.target);
         console.log(Object.fromEntries(fd.entries()));
         ">
-        <fieldset name="asd2">
+        <fieldset name="example-one">
+            <!--
+            Clicking  "button A" toggles to "button B"
+            Clicking  "button B" toggles to "button A"
+            -->
             <div class="toggle-checkbox" id="toggle-group">
                 <label> <input value="A" name="toggle" type="radio" checked />A </label>
                 <label> <input value="B" name="toggle" type="radio" />B </label>
             </div>
         </fieldset>
-        <fieldset name="asd3">
+        <fieldset name="example-two">
+            <!--
+            Clicking  "button A" toggles to "button B"
+            Clicking  "button B" toggles to "button C"
+            Clicking  "button D" toggles to "button A"
+            -->
             <div class="toggle-checkbox" id="toggle-group">
                 <label> <input value="A" name="toggle2" type="radio" checked />A </label>
                 <label> <input value="B" name="toggle2" type="radio" />B </label>
