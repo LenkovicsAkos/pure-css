@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<!--
+Nincs kész
+
+Vagy ki kell egészíteni a csst minden tab kulcscsal
+vagy kell javascriptet alkalmazni, kell egy web component pl
+-->
+
+<head>
+    <style>
+        fieldset.togglable {
+            .toggle-triggers {
+                display: flex;
+                margin-bottom: 3px;
+
+                label {
+                    border: 1px solid black;
+                    margin: 3px;
+                    padding: 0.3em;
+                }
+
+                label:has(input:hover) {
+                    background-color: aqua;
+                }
+
+                label:has(input:checked) {
+                    background-color: chartreuse;
+                }
+
+                input {
+                    appearance: none;
+                    margin: 0;
+                    padding: 0;
+                }
+
+            }
+
+            div[data-radio] {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <fieldset class="togglable">
+            <style>
+                &:has(input[value="a"]:checked) div[data-value="a"] { display: block; }
+                &:has(input[value="b"]:checked) div[data-value="b"] { display: block; }
+                &:has(input[value="c"]:checked) div[data-value="c"] { display: block; }
+                &:has(input[value="d"]:checked) div[data-value="d"] { display: block; }
+            </style>
+            <div class="toggle-triggers">
+                <label>A<input type="radio" value="a" name="toggle" /></label>
+                <label>B<input type="radio" value="b" name="toggle" /></label>
+                <label>C<input type="radio" value="c" name="toggle" /></label>
+                <label>D<input type="radio" value="d" name="toggle" /></label>
+            </div>
+            <div data-radio="toggle" data-value="a">
+                <label>A<input type="text" value="a" /></label>
+            </div>
+            <div data-radio="toggle" data-value="b">
+                <label>B<input type="text" value="a" /></label>
+            </div>
+            <div data-radio="toggle" data-value="c">
+                <label>C<input type="text" value="a" /></label>
+            </div>
+            <div data-radio="toggle" data-value="d">
+                <label>D<input type="text" value="a" /></label>
+            </div>
+        </fieldset>
+    </form>
+</body>
+
+</html>
